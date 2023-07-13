@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  async function doRequest() {
+
+    let url = 'http://localhost:8080/api/v1/markdown/create/fromHtml';
+    let data = {'url': 'https://www.baeldung.com/spring-cloud-kubernetes'};
+
+    let res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (res.ok) {
+
+      // let text = await res.text();
+      // return text;
+
+      let ret = await res.json();
+      return JSON.parse(ret.data);
+
+    } else {
+      return `HTTP error: ${res.status}`;
+    }
+  }
+
+  doRequest().then(data => {
+    console.log(data);
+  });
+
+</script></body>
+</html>
